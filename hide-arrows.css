@@ -1,0 +1,16 @@
+/* Hide any slider navigation arrows */
+.hero-slider .slider-nav,
+.hero-slider .prev,
+.hero-slider .next,
+.slider-arrow,
+.carousel-control-prev,
+.carousel-control-next {
+    display: none !important;
+}
+
+/* Hide testimonial navigation if any */
+.testimonials .nav-arrow,
+.testimonials .slider-arrow,
+.testi-nav {
+    display: none !important;
+}
