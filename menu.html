@@ -180,6 +180,20 @@
             opacity: 0.3;
         }
 
+        .cat-horizontal {
+            grid-column: 1 / -1;
+        }
+
+        .cat-horizontal .menu-list {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 992px) {
+            .cat-horizontal .menu-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .menu-page {
                 padding-top: 110px;
@@ -187,6 +201,10 @@
 
             .menu-sections {
                 grid-template-columns: 1fr;
+            }
+
+            .cat-horizontal {
+                grid-column: auto;
             }
         }
     </style>
@@ -449,7 +467,7 @@
                     </ul>
                 </div>
 
-                <div class="menu-category reveal delay-1">
+                <div class="menu-category reveal delay-1 cat-horizontal">
                     <div class="category-header">
                         <span class="category-icon">🥨</span>
                         <h2>Traditional Snacks</h2>
