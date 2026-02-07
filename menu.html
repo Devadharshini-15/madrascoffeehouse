@@ -191,6 +191,44 @@
             grid-template-columns: repeat(3, 1fr);
         }
 
+        /* Collapsible Section Interactions */
+        .collapsible-section .menu-list {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
+            margin: 0;
+        }
+
+        .collapsible-section.is-active .menu-list {
+            max-height: 2000px;
+            /* Large enough for content */
+            opacity: 1;
+            margin-top: 20px;
+        }
+
+        .collapsible-section .category-header {
+            cursor: pointer;
+            position: relative;
+            padding-right: 30px;
+            user-select: none;
+        }
+
+        .collapsible-section .category-header::after {
+            content: '↓';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--mch-orange);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-section.is-active .category-header::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
         @media (max-width: 992px) {
             .cat-horizontal .menu-list {
                 grid-template-columns: repeat(2, 1fr);
@@ -274,7 +312,7 @@
         <div class="menu-container">
             <div class="menu-sections">
                 <!-- CATEGORIES HERE -->
-                <div class="menu-category reveal">
+                <div class="menu-category reveal collapsible-section" id="hot-beverages">
                     <div class="category-header">
                         <span class="category-icon">☕</span>
                         <h2>Hot Beverages</h2>
@@ -838,6 +876,19 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Collapsible Hot Beverages Section Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const hotBevHeader = document.querySelector('#hot-beverages .category-header');
+            const hotBevSection = document.getElementById('hot-beverages');
+
+            if (hotBevHeader && hotBevSection) {
+                hotBevHeader.addEventListener('click', () => {
+                    hotBevSection.classList.toggle('is-active');
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
