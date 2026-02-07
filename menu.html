@@ -143,10 +143,12 @@
 
         .mch-bubble {
             position: absolute;
-            background: rgba(243, 146, 10, 0.1);
-            /* Soft orange-white semi-transparent */
+            background: rgba(243, 146, 10, 0.4);
+            /* Increased visibility */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Added border for clarity */
             border-radius: 50%;
-            bottom: -50px;
+            bottom: -60px;
             animation: mch-float-up var(--mch-speed) infinite linear;
             opacity: 0;
         }
@@ -158,15 +160,15 @@
             }
 
             10% {
-                opacity: 0.6;
+                opacity: 0.8;
             }
 
             80% {
-                opacity: 0.4;
+                opacity: 0.6;
             }
 
             100% {
-                transform: translateY(-500px) translateX(var(--mch-drift));
+                transform: translateY(-900px) translateX(var(--mch-drift));
                 opacity: 0;
             }
         }
