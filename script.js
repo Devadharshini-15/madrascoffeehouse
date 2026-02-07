@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStoryScroll();
     initTestimonials();
     initNavbar();
+    initIconInteractions();
 });
 
 /**
@@ -219,6 +220,22 @@ function initNavbar() {
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
             body.classList.remove('menu-open');
+        });
+    });
+}
+/**
+ * Service Icon Active States
+ */
+function initIconInteractions() {
+    const icons = document.querySelectorAll('.off-icon-circle');
+
+    icons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            // Remove active class from all icons
+            icons.forEach(i => i.classList.remove('active'));
+
+            // Add active class to clicked icon
+            icon.classList.add('active');
         });
     });
 }
