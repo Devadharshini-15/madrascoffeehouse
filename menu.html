@@ -117,11 +117,111 @@
             border-color: var(--mch-orange);
         }
 
-        .category-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
+        .menu-category {
+            background-color: #FFF9F5;
+            /* Warm café foam cream */
+            border: 1px solid rgba(228, 39, 46, 0.2);
+            padding: 40px;
             position: relative;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 8px;
+            overflow: hidden;
+            /* Contain bubbles */
+            z-index: 1;
+        }
+
+        /* Bubble Container & Animation */
+        .bubbles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mch-bubble {
+            position: absolute;
+            background: rgba(243, 146, 10, 0.1);
+            /* Soft orange-white semi-transparent */
+            border-radius: 50%;
+            bottom: -50px;
+            animation: mch-float-up var(--mch-speed) infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes mch-float-up {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            80% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-500px) translateX(var(--mch-drift));
+                opacity: 0;
+            }
+        }
+
+        /* Bubble variations */
+        .mch-bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            --mch-speed: 12s;
+            --mch-drift: 20px;
+            animation-delay: 0s;
+        }
+
+        .mch-bubble:nth-child(2) {
+            width: 25px;
+            height: 25px;
+            left: 30%;
+            --mch-speed: 15s;
+            --mch-drift: -15px;
+            animation-delay: 2s;
+        }
+
+        .mch-bubble:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 60%;
+            --mch-speed: 18s;
+            --mch-drift: 10px;
+            animation-delay: 5s;
+        }
+
+        .mch-bubble:nth-child(4) {
+            width: 30px;
+            height: 30px;
+            left: 80%;
+            --mch-speed: 14s;
+            --mch-drift: -20px;
+            animation-delay: 7s;
+        }
+
+        .mch-bubble:nth-child(5) {
+            width: 45px;
+            height: 45px;
+            left: 45%;
+            --mch-speed: 20s;
+            --mch-drift: 5px;
+            animation-delay: 1s;
+        }
+
+        .category-header,
+        .menu-list {
+            position: relative;
+            z-index: 2;
+            /* Sit above bubbles */
         }
 
         .category-header h2 {
@@ -189,44 +289,6 @@
 
         .cat-horizontal .menu-list {
             grid-template-columns: repeat(3, 1fr);
-        }
-
-        /* Collapsible Section Interactions */
-        .collapsible-section .menu-list {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
-            margin: 0;
-        }
-
-        .collapsible-section.is-active .menu-list {
-            max-height: 2000px;
-            /* Large enough for content */
-            opacity: 1;
-            margin-top: 20px;
-        }
-
-        .collapsible-section .category-header {
-            cursor: pointer;
-            position: relative;
-            padding-right: 30px;
-            user-select: none;
-        }
-
-        .collapsible-section .category-header::after {
-            content: '↓';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--mch-orange);
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .collapsible-section.is-active .category-header::after {
-            transform: translateY(-50%) rotate(180deg);
         }
 
         @media (max-width: 992px) {
@@ -312,7 +374,15 @@
         <div class="menu-container">
             <div class="menu-sections">
                 <!-- CATEGORIES HERE -->
-                <div class="menu-category reveal collapsible-section" id="hot-beverages">
+                <div class="menu-category reveal">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">☕</span>
                         <h2>Hot Beverages</h2>
@@ -402,6 +472,14 @@
                 </div>
 
                 <div class="menu-category reveal delay-1">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🍪</span>
                         <h2>Cookies</h2>
@@ -441,6 +519,14 @@
                 </div>
 
                 <div class="menu-category reveal delay-2">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🥤</span>
                         <h2>Cold Beverages</h2>
@@ -480,6 +566,14 @@
                 </div>
 
                 <div class="menu-category reveal">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🍲</span>
                         <h2>Sundal Varieties</h2>
@@ -509,6 +603,14 @@
                 </div>
 
                 <div class="menu-category reveal delay-1 cat-horizontal">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🥨</span>
                         <h2>Traditional Snacks</h2>
@@ -683,6 +785,14 @@
                 </div>
 
                 <div class="menu-category reveal delay-2">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🍜</span>
                         <h2>Noodle Varieties</h2>
@@ -722,6 +832,14 @@
                 </div>
 
                 <div class="menu-category reveal">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🥪</span>
                         <h2>Sandwich Varieties</h2>
@@ -751,6 +869,14 @@
                 </div>
 
                 <div class="menu-category reveal delay-1">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🥯</span>
                         <h2>Cake & Bun</h2>
@@ -795,6 +921,14 @@
                 </div>
 
                 <div class="menu-category reveal delay-2 category-special">
+                    <!-- Bubble Decor -->
+                    <div class="bubbles-container">
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                        <div class="mch-bubble"></div>
+                    </div>
                     <div class="category-header">
                         <span class="category-icon">🌟</span>
                         <h2>MCH Special</h2>
@@ -876,19 +1010,6 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Collapsible Hot Beverages Section Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const hotBevHeader = document.querySelector('#hot-beverages .category-header');
-            const hotBevSection = document.getElementById('hot-beverages');
-
-            if (hotBevHeader && hotBevSection) {
-                hotBevHeader.addEventListener('click', () => {
-                    hotBevSection.classList.toggle('is-active');
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>
