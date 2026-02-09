@@ -4,34 +4,510 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madras Coffee House | Premium South Indian Coffee Experience</title>
+    <title>Franchise - Madras Coffee House | Authentic South Indian Café</title>
     <meta name="description"
-        content="Redefining the authentic Madras Filter Coffee experience with tradition and a modern touch.">
-
+        content="Join the success story of Madras Coffee House. Authentic South Indian Filter Coffee franchise opportunities available worldwide.">
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 
+           FRANCHISE PAGE REDESIGN - STRICT BRAND COLORS
+           Primary Red: #e4272e
+           Accent Orange: #f3920a
+           Contrast White: #fefefe
+           
+           NO BLACK, NO GREY, NO OTHER COLORS.
+        */
+        :root {
+            --brand-red: #e4272e;
+            --brand-orange: #f3920a;
+            --brand-white: #fefefe;
+            --brand-red-light: rgba(228, 39, 46, 0.1);
+            --brand-orange-light: rgba(243, 146, 10, 0.1);
+        }
+
+        body {
+            background-color: var(--brand-white);
+            color: var(--brand-red);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Common Layout Utilities */
+        .section-padding {
+            padding: 100px 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Ornamental Separators (Optional Add-on) */
+        .deco-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .deco-line {
+            height: 2px;
+            background-color: var(--brand-orange);
+            width: 80px;
+        }
+
+        .deco-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--brand-red);
+            transform: rotate(45deg);
+        }
+
+        /* 
+           1. HERO SECTION 
+           Traditional header, big title, ornamental border, coffee texture
+        */
+        .franchise-hero {
+            position: relative;
+            height: 80vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Coffee-themed background with brand overlay */
+            background: linear-gradient(rgba(228, 39, 46, 0.5), rgba(243, 146, 10, 0.3)), url('image 6.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-top: 100px;
+            /* Space for fixed navbar */
+        }
+
+        .hero-ornamental-frame {
+            background-color: var(--brand-white);
+            padding: 80px 40px;
+            border: 4px double var(--brand-red);
+            max-width: 900px;
+            position: relative;
+            box-shadow: 0 30px 60px var(--brand-red-light);
+            text-align: center;
+        }
+
+        .hero-ornamental-frame::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--brand-orange);
+            pointer-events: none;
+        }
+
+        .franchise-hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--brand-red);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .franchise-hero .hero-sub {
+            font-size: 1.5rem;
+            color: var(--brand-orange);
+            font-weight: 700;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* 
+           2. WHY FRANCHISE WITH US
+           Decorative cards, Icons + short descriptions
+        */
+        .why-franchise {
+            background-color: var(--brand-white);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            color: var(--brand-red);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .deco-card {
+            background: var(--brand-white);
+            border: 2px solid var(--brand-orange);
+            padding: 50px 35px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .deco-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--brand-orange-light) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .deco-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--brand-red);
+            box-shadow: 0 20px 40px var(--brand-red-light);
+        }
+
+        .deco-card:hover::after {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            color: var(--brand-red);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .deco-card h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .deco-card p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--brand-red);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 
+           3. INVESTMENT & BENEFITS
+           Structured panels, accent colors hierarchy
+        */
+        .investment-benefits {
+            background-color: var(--brand-red-light);
+        }
+
+        .panels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .benefit-panel {
+            background: var(--brand-white);
+            padding: 50px;
+            border: 2px solid var(--brand-orange);
+            border-top: 12px solid var(--brand-red);
+            box-shadow: 0 15px 45px rgba(228, 39, 46, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .benefit-panel h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--brand-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .benefit-list li {
+            padding: 15px 0 15px 35px;
+            position: relative;
+            color: var(--brand-red);
+            font-weight: 600;
+            border-bottom: 1px solid var(--brand-orange-light);
+            line-height: 1.5;
+        }
+
+        .benefit-list li::before {
+            content: '☕';
+            position: absolute;
+            left: 0;
+            color: var(--brand-orange);
+            font-size: 1.2rem;
+        }
+
+        /* 
+           4. HOW TO APPLY
+           Timeline / horizontal step-based layout
+        */
+        .how-to-apply {
+            background-color: var(--brand-white);
+        }
+
+        .timeline-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 55px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background-color: var(--brand-orange);
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .step-item {
+            flex: 1;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .step-visual {
+            width: 110px;
+            height: 110px;
+            background: var(--brand-white);
+            border: 4px solid var(--brand-red);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--brand-red);
+            transition: all 0.4s ease;
+            box-shadow: 0 0 0 15px var(--brand-white);
+        }
+
+        .step-item:hover .step-visual {
+            background-color: var(--brand-red);
+            color: var(--brand-white);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .step-item h4 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .step-item p {
+            font-size: 1rem;
+            color: var(--brand-red);
+            font-weight: 600;
+            padding: 0 15px;
+        }
+
+        /* 
+           5. FRANCHISE FORM 
+           Traditional framed form, red CTA, orange hover
+        */
+        .franchise-form-section {
+            background-color: var(--brand-orange-light);
+        }
+
+        .traditional-frame {
+            max-width: 850px;
+            margin: 0 auto;
+            border: 6px double var(--brand-red);
+            padding: 8px;
+            background-color: var(--brand-white);
+        }
+
+        .form-inner {
+            border: 2px solid var(--brand-orange);
+            padding: 60px;
+            position: relative;
+        }
+
+        .form-inner::before {
+            content: 'FRANCHISE APPLICATION';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brand-white);
+            padding: 0 20px;
+            color: var(--brand-red);
+            font-weight: 900;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: var(--brand-red);
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid var(--brand-orange-light);
+            background: var(--brand-white);
+            color: var(--brand-red);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 0;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--brand-red);
+            background-color: var(--brand-orange-light);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 22px;
+            background-color: var(--brand-red);
+            color: var(--brand-white);
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--brand-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--brand-orange-light);
+        }
+
+        /* 
+           Responsive Adjustments
+        */
+        @media (max-width: 992px) {
+            .timeline-steps {
+                flex-direction: column;
+                gap: 60px;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-padding {
+                padding: 70px 20px;
+            }
+
+            .hero-ornamental-frame {
+                padding: 50px 20px;
+                margin: 20px;
+            }
+
+            .form-inner {
+                padding: 40px 20px;
+            }
+
+            .traditional-frame {
+                margin: 0 10px;
+            }
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
-    <!-- Premium Navbar -->
-    <header id="main-header" class="premium-nav">
-        <div class="container">
+    <!-- Premium Header -->
+    <header id="main-header" class="premium-nav scrolled">
+        <div class="container" style="max-width: 1400px; padding: 0 40px;">
             <nav class="nav-grid">
-                <!-- Left: Logo -->
                 <div class="nav-brand">
                     <a href="index.html" class="logo">
                         <img src="https://madrascoffeehouse.com/wp-content/uploads/2023/05/cropped-mch-Logo.jpg"
                             alt="Madras Coffee House Premium">
                     </a>
                 </div>
-
-                <!-- Center: Navigation Links -->
                 <div class="nav-links">
                     <a href="index.html" class="nav-item">Home</a>
                     <a href="menu.html" class="nav-item">Our Menu</a>
@@ -39,22 +515,14 @@
                     <a href="franchise.html" class="nav-item active">Franchise</a>
                     <a href="contact.html" class="nav-item">Contact</a>
                 </div>
-
-                <!-- Right: CTA Button -->
                 <div class="nav-cta">
-                    <a href="#contact-info" class="btn btn-red btn-lux">Get Franchise <span class="arrow">→</span></a>
+                    <a href="#franchise-form" class="btn btn-red btn-lux">Get Franchise <span class="arrow">→</span></a>
                 </div>
-
-                <!-- Mobile Menu Toggle -->
                 <button class="menu-toggle" aria-label="Open Menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
                 </button>
             </nav>
         </div>
-
-        <!-- Mobile Full Screen Menu -->
         <div class="mobile-menu-overlay">
             <nav class="mobile-nav">
                 <a href="index.html" class="mobile-link">Home</a>
@@ -62,246 +530,454 @@
                 <a href="stores.html" class="mobile-link">Our Stores</a>
                 <a href="franchise.html" class="mobile-link active">Franchise</a>
                 <a href="contact.html" class="mobile-link">Contact</a>
-                <a href="#contact-info" class="btn btn-red mobile-cta">Get Franchise</a>
+                <a href="#franchise-form" class="btn btn-red mobile-cta">Get Franchise</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- Franchise Hero Section -->
-        <section class="hero">
-            <div class="hero-slider">
-                <div class="slider-item active" style="background-image: url('image 6.jpg');"></div>
-                <div class="hero-overlay"></div>
-            </div>
+        <main>
+            <!-- 1. SPLIT HERO SECTION (2-GRID DESKTOP) -->
+            <section class="franchise-hero-split section-padding"
+                style="background-color: var(--brand-white); margin-top: 100px;">
+                <div class="container" style="max-width: 1400px;">
+                    <div class="split-grid"
+                        style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center;">
+                        <!-- Col 1: Content -->
+                        <div class="hero-content-side reveal">
+                            <span class="label" style="display: inline-block; margin-bottom: 20px;">The
+                                Opportunity</span>
+                            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 30px;">Why Partner <br><span
+                                    style="color: var(--brand-orange);">With Us?</span></h1>
 
-            <div class="container">
-                <div class="hero-grid">
-                    <div class="hero-content reveal">
-                        <h1>Become a <span>Franchise Partner</span></h1>
-                        <p class="hero-sub">
-                            Join the success story of Madras Coffee House. With over 150+ stores worldwide, we bring the
-                            authentic taste of South Indian filter coffee to the globe.
-                        </p>
-                        <div class="hero-btns">
-                            <a href="#contact-info" class="btn btn-red">Enquire Now</a>
-                            <a href="#benefits" class="btn btn-outline-white">Why Choose Us</a>
+                            <div class="points-list" style="margin-bottom: 40px;">
+                                <div class="point-item"
+                                    style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+                                    <i class="fas fa-check-circle"
+                                        style="color: var(--brand-orange); font-size: 1.5rem; margin-top: 5px;"></i>
+                                    <p style="font-weight: 600; margin: 0;">150+ Stores Worldwide: Join a global success
+                                        story.</p>
+                                </div>
+                                <div class="point-item"
+                                    style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+                                    <i class="fas fa-check-circle"
+                                        style="color: var(--brand-orange); font-size: 1.5rem; margin-top: 5px;"></i>
+                                    <p style="font-weight: 600; margin: 0;">Authentic Heritage: Renowned for authentic
+                                        Indian filter coffee.</p>
+                                </div>
+                                <div class="point-item"
+                                    style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+                                    <i class="fas fa-check-circle"
+                                        style="color: var(--brand-orange); font-size: 1.5rem; margin-top: 5px;"></i>
+                                    <p style="font-weight: 600; margin: 0;">Proven Model: Leverage a global business
+                                        model and support system.</p>
+                                </div>
+                                <div class="point-item"
+                                    style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+                                    <i class="fas fa-check-circle"
+                                        style="color: var(--brand-orange); font-size: 1.5rem; margin-top: 5px;"></i>
+                                    <p style="font-weight: 600; margin: 0;">Training & Support: Comprehensive
+                                        operational assistance.</p>
+                                </div>
+                                <div class="point-item"
+                                    style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+                                    <i class="fas fa-check-circle"
+                                        style="color: var(--brand-orange); font-size: 1.5rem; margin-top: 5px;"></i>
+                                    <p style="font-weight: 600; margin: 0;">Strong Brand: Loyal customer base and global
+                                        recognition.</p>
+                                </div>
+                            </div>
+
+                            <a href="#franchise-form" class="btn btn-red btn-lux">Apply Now <span
+                                    class="arrow">→</span></a>
                         </div>
-                        <div class="hero-trust">
-                            Global Presence • Authentic Taste • Proven Model
+
+                        <!-- Col 2: Photo (Exactly same as first page about section) -->
+                        <div class="hero-visual-side reveal" style="position: relative;">
+                            <div class="ornamental-frame"
+                                style="border: 10px double var(--brand-red); padding: 5px; overflow: hidden;">
+                                <img src="image11.jpg" alt="Madras Coffee House Heritage"
+                                    style="width: 100%; height: 600px; object-fit: cover; display: block; border: 2px solid var(--brand-orange);">
+                            </div>
+                            <!-- Decorative badge -->
+                            <div class="hero-badge"
+                                style="position: absolute; bottom: -20px; right: -20px; background: var(--brand-orange); color: var(--brand-white); padding: 20px; font-weight: 900; text-transform: uppercase; border: 4px double var(--brand-white); letter-spacing: 1px;">
+                                150+ STORES
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- About Franchise Section -->
-        <section class="about" id="about">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="about-img-wrapper reveal">
-                        <img src="image14.jpg" alt="Madras Coffee House Franchise" class="about-img">
-                    </div>
-                    <div class="about-content reveal">
-                        <span class="label">The Opportunity</span>
-                        <h2>Why Partner With Us?</h2>
-                        <p>
-                            Madras Coffee House, the renowned and authentic filter coffee outlet with its roots in
-                            Madras, invites passionate entrepreneurs to join its success story by becoming a franchisee.
-                        </p>
-                        <p>
-                            We are a beloved destination for coffee lovers, offering a proven business model that blends
-                            tradition with modern cafe culture.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <!-- Responsive Style for Split Hero -->
+            <style>
+                @media (max-width: 992px) {
+                    .split-grid {
+                        grid-template-columns: 1fr !important;
+                        gap: 40px !important;
+                    }
 
-        <!-- Franchise Benefits Section -->
-        <section class="offerings" id="benefits">
-            <div class="container">
-                <div class="offerings-head reveal">
-                    <span class="label">Franchise Benefits</span>
-                    <h2>What We Offer</h2>
-                </div>
+                    .hero-content-side {
+                        text-align: center;
+                    }
 
-                <div class="offerings-grid">
-                    <!-- Benefit 1 -->
-                    <div class="off-card-v2 reveal">
-                        <div class="off-icon-circle">
-                            🚀
-                        </div>
-                        <div class="off-text-box">
-                            <h3>Proven Business Model</h3>
-                            <p>Join a system that has already succeeded in 150+ locations worldwide.</p>
-                        </div>
-                    </div>
+                    .point-item {
+                        justify-content: center;
+                        text-align: left;
+                    }
 
-                    <!-- Benefit 2 -->
-                    <div class="off-card-v2 reveal" style="transition-delay: 0.1s;">
-                        <div class="off-icon-circle">
-                            🎓
-                        </div>
-                        <div class="off-text-box">
-                            <h3>Comprehensive Training</h3>
-                            <p>We provide extensive operational training and ongoing support to ensure your success.</p>
+                    .hero-visual-side {
+                        order: -1;
+                        /* Image on top on mobile */
+                        max-width: 500px;
+                        margin: 0 auto;
+                    }
+
+                    .hero-badge {
+                        right: 0 !important;
+                        bottom: 0 !important;
+                    }
+
+                    .franchise-hero-split {
+                        padding-top: 60px !important;
+                    }
+
+                    .hero-visual-side img {
+                        height: 300px !important;
+                    }
+                }
+            </style>
+
+            <!-- 3. INVESTMENT & BENEFITS -->
+            <section class="investment-benefits section-padding">
+                <div class="container">
+                    <div class="text-center">
+                        <h2 class="section-title reveal">Investment & Benefits</h2>
+                        <div class="deco-wrapper">
+                            <div class="deco-line"></div>
+                            <div class="deco-dot"></div>
+                            <div class="deco-line"></div>
                         </div>
                     </div>
 
-                    <!-- Benefit 3 -->
-                    <div class="off-card-v2 reveal" style="transition-delay: 0.2s;">
-                        <div class="off-icon-circle">
-                            🌍
+                    <div class="panels-grid">
+                        <div class="benefit-panel reveal">
+                            <h3>Operational Power</h3>
+                            <ul class="benefit-list">
+                                <li>Comprehensive training and operational assistance</li>
+                                <li>Well-established supply chain and efficient operations</li>
+                                <li>Proven framework for daily store management</li>
+                            </ul>
                         </div>
-                        <div class="off-text-box">
-                            <h3>Global Brand</h3>
-                            <p>Leverage the strong brand recognition and loyal customer base of Madras Coffee House.</p>
-                        </div>
-                    </div>
-
-                    <!-- Benefit 4 -->
-                    <div class="off-card-v2 reveal">
-                        <div class="off-icon-circle">
-                            🚚
-                        </div>
-                        <div class="off-text-box">
-                            <h3>Supply Chain</h3>
-                            <p>Access our well-established supply chain for authentic ingredients and efficient
-                                operations.</p>
-                        </div>
-                    </div>
-
-                    <!-- Benefit 5 -->
-                    <div class="off-card-v2 reveal" style="transition-delay: 0.1s;">
-                        <div class="off-icon-circle">
-                            ☕
-                        </div>
-                        <div class="off-text-box">
-                            <h3>Authentic Product</h3>
-                            <p>Serve the captivating aroma and taste of true Madras filter coffee.</p>
-                        </div>
-                    </div>
-
-                    <!-- Benefit 6 -->
-                    <div class="off-card-v2 reveal" style="transition-delay: 0.2s;">
-                        <div class="off-icon-circle">
-                            💎
-                        </div>
-                        <div class="off-text-box">
-                            <h3>Premium Experience</h3>
-                            <p>A modern, premium cafe environment that embraces tradition.</p>
+                        <div class="benefit-panel reveal" style="transition-delay: 0.1s;">
+                            <h3>Brand Equity</h3>
+                            <ul class="benefit-list">
+                                <li>Strong brand recognition and loyal customer base</li>
+                                <li>Join a lineage of authentic South Indian heritage</li>
+                                <li>Modern, premium cafe environment design support</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Franchise Journey & Media Section -->
-        <section class="video-section reveal">
-            <div class="container">
-                <div class="offerings-head">
-                    <span class="label">Media</span>
-                    <h2>Franchise Journey & Media</h2>
-                </div>
-                <div class="video-grid">
-                    <!-- Video 1 -->
-                    <a href="https://www.youtube.com/watch?v=tSrQtTl40sc" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/tSrQtTl40sc/hqdefault.jpg"
-                            alt="Madras Coffee House Franchise Journey" class="video-thumb">
-                        <div class="play-overlay">
-                            <div class="play-icon"></div>
+            <!-- 4. HOW TO APPLY -->
+            <section class="how-to-apply section-padding">
+                <div class="container text-center">
+                    <h2 class="section-title reveal">Application Steps</h2>
+                    <div class="deco-wrapper">
+                        <div class="deco-line"></div>
+                        <div class="deco-dot"></div>
+                        <div class="deco-line"></div>
+                    </div>
+
+                    <div class="timeline-steps">
+                        <div class="timeline-line"></div>
+                        <div class="step-item reveal">
+                            <div class="step-visual"><i class="fas fa-id-card"></i></div>
+                            <h4>Review Profile</h4>
+                            <p style="margin-top: 10px;">
+                                <a href="https://madrascoffeehouse.com/wp-content/uploads/2023/06/MCH-PROFILE.pdf"
+                                    target="_blank"
+                                    style="color: var(--brand-red); text-decoration: underline; font-weight: 700;">Download
+                                    Profile</a> &
+                                <a href="https://madrascoffeehouse.com/wp-content/uploads/2025/10/MCH-PRESENTATION-new-final-.pdf"
+                                    target="_blank"
+                                    style="color: var(--brand-red); text-decoration: underline; font-weight: 700;">Franchise
+                                    Brochure</a>
+                            </p>
                         </div>
-                    </a>
-
-                    <!-- Video 2 -->
-                    <a href="https://www.youtube.com/watch?v=C4AbuKpQOFw" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/C4AbuKpQOFw/hqdefault.jpg" alt="Inside Our Franchise"
-                            class="video-thumb">
-                        <div class="play-overlay">
-                            <div class="play-icon"></div>
+                        <div class="step-item reveal" style="transition-delay: 0.1s;">
+                            <div class="step-visual"><i class="fas fa-paper-plane"></i></div>
+                            <h4>Send Enquiry</h4>
+                            <p>Express your interest through our official franchise enquiry channels.</p>
                         </div>
-                    </a>
-
-                    <!-- Video 3 -->
-                    <a href="https://www.youtube.com/watch?v=d29VzItJTtQ" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/d29VzItJTtQ/hqdefault.jpg" alt="Franchise Success Stories"
-                            class="video-thumb">
-                        <div class="play-overlay">
-                            <div class="play-icon"></div>
+                        <div class="step-item reveal" style="transition-delay: 0.2s;">
+                            <div class="step-visual"><i class="fas fa-handshake"></i></div>
+                            <h4>Partnership</h4>
+                            <p>Begin your journey as a proud MCH Franchise Partner.</p>
                         </div>
-                    </a>
-
-                    <!-- Video 4 -->
-                    <a href="https://www.youtube.com/watch?v=lKz86ZCBPd4" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/lKz86ZCBPd4/hqdefault.jpg" alt="Experience the Tradition"
-                            class="video-thumb">
-                        <div class="play-overlay">
-                            <div class="play-icon"></div>
-                        </div>
-                    </a>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
+            <!-- NEW: VIDEO & MEDIA SECTION -->
+            <section class="video-media section-padding"
+                style="background-color: var(--brand-white); border-top: 1px solid var(--brand-orange-light);">
+                <div class="container text-center">
+                    <h2 class="section-title reveal">Heritage in Motion</h2>
+                    <div class="deco-wrapper">
+                        <div class="deco-line"></div>
+                        <div class="deco-dot"></div>
+                        <div class="deco-line"></div>
+                    </div>
+                    <p class="reveal"
+                        style="max-width: 700px; margin: 0 auto 50px; font-weight: 600; color: var(--brand-red);">
+                        Experience
+                        the journey of Madras Coffee House through these featured stories.</p>
 
-    </main>
+                    <style>
+                        .video-grid {
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 40px;
+                            margin-top: 50px;
+                            max-width: 1100px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="reveal">
-                    <a href="index.html" class="footer-logo">
-                        <img src="https://madrascoffeehouse.com/wp-content/uploads/2023/05/cropped-mch-Logo.jpg"
-                            alt="MCH Logo">
-                    </a>
-                    <p class="footer-tag">Authentic South Indian Filter Coffee and snacks served in a modern, premium
-                        cafe environment.</p>
-                </div>
-                <div class="reveal">
-                    <p class="footer-title">Contact Us</p>
-                    <ul class="footer-links">
-                        <li>info@madrascoffeehouse.com</li>
-                        <li>+91 98848 83906</li>
-                        <li>Chennai, Tamil Nadu</li>
-                    </ul>
-                </div>
-                <div class="reveal">
-                    <p class="footer-title">Follow Us</p>
-                    <div class="socials">
-                        <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
+                        .video-card {
+                            position: relative;
+                            display: block;
+                            border: 6px double var(--brand-red);
+                            padding: 5px;
+                            background: var(--brand-white);
+                            box-shadow: 0 10px 30px var(--brand-red-light);
+                            transition: all 0.4s ease;
+                            cursor: pointer;
+                            text-decoration: none;
+                        }
+
+                        .video-card:hover {
+                            transform: translateY(-10px);
+                            box-shadow: 0 20px 40px var(--brand-red-light);
+                            border-color: var(--brand-orange);
+                        }
+
+                        .thumb-wrapper {
+                            position: relative;
+                            padding-bottom: 56.25%;
+                            height: 0;
+                            overflow: hidden;
+                            border: 1px solid var(--brand-orange);
+                        }
+
+                        .thumb-wrapper img {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: transform 0.5s ease;
+                        }
+
+                        .video-card:hover .thumb-wrapper img {
+                            transform: scale(1.1);
+                        }
+
+                        .play-btn-overlay {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 70px;
+                            height: 70px;
+                            background: rgba(228, 39, 46, 0.9);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: var(--brand-white);
+                            font-size: 1.5rem;
+                            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+                            z-index: 2;
+                            transition: all 0.3s ease;
+                        }
+
+                        .video-card:hover .play-btn-overlay {
+                            background: var(--brand-orange);
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+
+                        @media (max-width: 768px) {
+                            .video-grid {
+                                grid-template-columns: 1fr;
+                                gap: 30px;
+                            }
+                        }
+                    </style>
+
+                    <div class="video-grid">
+                        <!-- Video 1 -->
+                        <a href="https://www.youtube.com/watch?v=tSrQtTl40sc" target="_blank" class="video-card reveal">
+                            <div class="thumb-wrapper">
+                                <img src="https://img.youtube.com/vi/tSrQtTl40sc/mqdefault.jpg" alt="MCH Journey">
+                                <div class="play-btn-overlay">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
                         </a>
-                        <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
+                        <!-- Video 2 -->
+                        <a href="https://www.youtube.com/watch?v=C4AbuKpQOFw" target="_blank" class="video-card reveal"
+                            style="transition-delay: 0.1s;">
+                            <div class="thumb-wrapper">
+                                <img src="https://img.youtube.com/vi/C4AbuKpQOFw/mqdefault.jpg" alt="Inside MCH">
+                                <div class="play-btn-overlay">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
                         </a>
-                        <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
-                                </path>
-                            </svg>
+                        <!-- Video 3 -->
+                        <a href="https://www.youtube.com/watch?v=d29VzItJTtQ" target="_blank" class="video-card reveal"
+                            style="transition-delay: 0.2s;">
+                            <div class="thumb-wrapper">
+                                <img src="https://img.youtube.com/vi/d29VzItJTtQ/mqdefault.jpg" alt="Success Stories">
+                                <div class="play-btn-overlay">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Video 4 -->
+                        <a href="https://www.youtube.com/watch?v=lKz86ZCBPd4" target="_blank" class="video-card reveal"
+                            style="transition-delay: 0.3s;">
+                            <div class="thumb-wrapper">
+                                <img src="https://img.youtube.com/vi/lKz86ZCBPd4/mqdefault.jpg" alt="Coffee Heritage">
+                                <div class="play-btn-overlay">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="footer-copy">
-                <p>&copy; 2024 Madras Coffee House. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+            </section>
 
-    <script src="script.js"></script>
+            <!-- 5. FRANCHISE FORM -->
+            <section class="franchise-form-section section-padding" id="franchise-form">
+                <div class="container text-center">
+                    <h2 class="section-title reveal">Franchise Inquiry</h2>
+                    <div class="deco-wrapper">
+                        <div class="deco-line"></div>
+                        <div class="deco-dot"></div>
+                        <div class="deco-line"></div>
+                    </div>
+
+                    <div class="traditional-frame reveal">
+                        <div class="form-inner">
+                            <form id="franchiseForm">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>FullName</label>
+                                        <input type="text" class="form-control" placeholder="YOUR NAME" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input type="email" class="form-control" placeholder="YOUR EMAIL" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="tel" class="form-control" placeholder="MOBILE NUMBER" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Proposed Location</label>
+                                        <input type="text" class="form-control" placeholder="CITY / REGION" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Message / Experience</label>
+                                        <textarea class="form-control" rows="4"
+                                            placeholder="TELL US ABOUT YOURSELF..."></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-submit">Submit Application</button>
+                            </form>
+
+                            <div
+                                style="margin-top: 50px; border-top: 2px solid var(--brand-orange-light); padding-top: 40px;">
+                                <h4
+                                    style="margin-bottom: 25px; letter-spacing: 2px; font-size: clamp(1rem, 5vw, 1.4rem);">
+                                    DIRECT COMMUNICATION</h4>
+                                <div style="display: flex; flex-direction: column; gap: 15px;">
+                                    <a href="mailto:prasanna@madrascoffeehouse.com"
+                                        style="color: var(--brand-red); text-decoration: none; font-weight: 800; font-size: clamp(0.85rem, 4.5vw, 1.1rem); word-break: break-all; line-height: 1.4;">
+                                        prasanna@madrascoffeehouse.com
+                                    </a>
+                                    <a href="mailto:kumaaravelan@madrascoffeehouse.com"
+                                        style="color: var(--brand-red); text-decoration: none; font-weight: 800; font-size: clamp(0.85rem, 4.5vw, 1.1rem); word-break: break-all; line-height: 1.4;">
+                                        kumaaravelan@madrascoffeehouse.com
+                                    </a>
+                                </div>
+                                <div
+                                    style="margin-top: 40px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                                    <a href="https://madrascoffeehouse.com/wp-content/uploads/2025/10/MCH-PRESENTATION-new-final-.pdf"
+                                        target="_blank"
+                                        style="color: var(--brand-orange); text-decoration: none; font-weight: 900; letter-spacing: 1px;">
+                                        <i class="fas fa-file-pdf"></i> BROCHURE
+                                    </a>
+                                    <a href="https://madrascoffeehouse.com/wp-content/uploads/2023/06/MCH-PROFILE.pdf"
+                                        target="_blank"
+                                        style="color: var(--brand-orange); text-decoration: none; font-weight: 900; letter-spacing: 1px;">
+                                        <i class="fas fa-file-pdf"></i> COMPANY PROFILE
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container" style="max-width: 1400px; padding: 0 40px;">
+                <div class="footer-grid">
+                    <div class="reveal">
+                        <a href="index.html" class="footer-logo">
+                            <img src="https://madrascoffeehouse.com/wp-content/uploads/2023/05/cropped-mch-Logo.jpg"
+                                alt="MCH Logo">
+                        </a>
+                        <p class="footer-tag">Authentic South Indian Filter Coffee and snacks served in a modern,
+                            premium
+                            cafe environment.</p>
+                    </div>
+                    <div class="reveal">
+                        <p class="footer-title">Navigation</p>
+                        <ul class="footer-links">
+                            <li><a href="index.html" style="color: inherit; text-decoration: none;">Home</a></li>
+                            <li><a href="menu.html" style="color: inherit; text-decoration: none;">Our Menu</a></li>
+                            <li><a href="stores.html" style="color: inherit; text-decoration: none;">Our Stores</a></li>
+                            <li><a href="contact.html" style="color: inherit; text-decoration: none;">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="reveal">
+                        <p class="footer-title">Follow Us</p>
+                        <div class="socials">
+                            <a href="https://www.facebook.com/madrascoffeehouseofficial/"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/madrascoffeehouseofficial/"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="https://www.youtube.com/@madrascoffeehouseofficial"><i
+                                    class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-copy">
+                    <p>&copy; 2024 Madras Coffee House. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
 </body>
 
 </html>

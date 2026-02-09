@@ -370,14 +370,21 @@
             border-color: var(--mch-orange);
         }
 
-        /* 📱 Mobile Responsive */
+        /* 📱 Mobile Responsive Optimization */
         @media (max-width: 992px) {
             .district-content {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
 
             .filter-tabs {
                 justify-content: flex-start;
+                padding: 10px 15px;
+            }
+
+            .stores-main-layout {
+                gap: 20px !important;
+                padding: 0 15px;
             }
         }
 
@@ -386,16 +393,47 @@
                 grid-template-columns: 1fr;
             }
 
+            .branch-card {
+                padding: 20px;
+                gap: 12px;
+            }
+
+            .branch-card h4 {
+                font-size: 1.2rem;
+            }
+
             .state-heading {
-                font-size: 2rem;
+                font-size: 1.8rem;
+                margin-bottom: 20px;
             }
 
             .stores-header {
-                padding: 60px 20px;
+                padding: 40px 15px;
+            }
+
+            .stores-header h1 {
+                font-size: 2.2rem;
             }
 
             .stores-page-content {
-                padding-top: 100px;
+                padding-top: 90px;
+            }
+
+            .district-header {
+                padding: 15px 20px;
+            }
+
+            .district-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .tab-btn {
+                padding: 8px 18px;
+                font-size: 0.75rem;
+            }
+
+            .search-section {
+                margin-bottom: 30px;
             }
         }
 
@@ -438,6 +476,117 @@
 
         .hidden {
             display: none !important;
+        }
+
+        /* 🗺 Layout Split */
+        .stores-main-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 450px;
+            gap: 40px;
+            padding: 0 20px;
+            align-items: start;
+        }
+
+        .map-sidebar {
+            position: sticky;
+            top: 200px;
+            height: calc(100vh - 250px);
+            z-index: 90;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .map-sticky-container {
+            height: 100%;
+            background: var(--mch-white);
+            border: 6px double var(--mch-red);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px var(--mch-red-light);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .map-header {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--mch-orange-light);
+            margin-bottom: 15px;
+        }
+
+        .map-header h3 {
+            margin: 0;
+            color: var(--mch-red);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .active-branch-label {
+            display: block;
+            margin-top: 5px;
+            color: var(--mch-orange);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .map-frame-wrapper {
+            flex-grow: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--mch-orange-light);
+            position: relative;
+        }
+
+        #store-map-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Active Card Highlight */
+        .branch-card.active-target {
+            border-color: var(--mch-red);
+            background-color: var(--mch-orange-light);
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px var(--mch-red-light);
+            z-index: 2;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1200px) {
+            .stores-main-layout {
+                grid-template-columns: 1fr 380px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .stores-main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .map-sidebar {
+                position: relative;
+                top: 0;
+                height: 380px;
+                margin: 15px 0 30px;
+                display: none;
+                /* Hidden until clicked on mobile */
+            }
+
+            .map-sidebar.mobile-visible {
+                display: block;
+            }
+
+            .branch-card.active-target {
+                transform: none;
+                /* Avoid scaling on mobile */
+                border-width: 3px;
+                box-shadow: 0 10px 20px var(--mch-red-light);
+            }
         }
 
         /* Custom Scrollbar */
@@ -544,903 +693,925 @@
             </div>
         </nav>
 
-        <div class="state-container">
-            <!-- INTERNATIONAL -->
-            <div class="state-section" id="state-international" data-state="international">
-                <h2 class="state-heading">United Arab Emirates</h2>
+        <!-- Dynamic Store Map Layout -->
+        <div class="stores-main-layout">
+            <div class="stores-list-side">
+                <div class="state-container" style="padding: 0; max-width: 100%;">
+                    <!-- INTERNATIONAL -->
+                    <div class="state-section" id="state-international" data-state="international">
+                        <h2 class="state-heading">United Arab Emirates</h2>
 
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Abu Dhabi</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Abu Dhabi - Musaffah</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Musaffah Industrial Area, Abu Dhabi, United Arab Emirates</p>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Abu Dhabi</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Abu Dhabi - Musaffah</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Musaffah Industrial Area, Abu Dhabi, United Arab Emirates</p>
+                                        </div>
+                                        <div class="info-row"><i class="fas fa-phone"></i>
+                                            <p>+971 2 123 4567</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">View on Map</a>
                                 </div>
-                                <div class="info-row"><i class="fas fa-phone"></i>
-                                    <p>+971 2 123 4567</p>
+                                <div class="branch-card">
+                                    <h4>Abu Dhabi - Electronic City</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Electronic City, Abu Dhabi, United Arab Emirates</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">View on Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">View on Map</a>
                         </div>
-                        <div class="branch-card">
-                            <h4>Abu Dhabi - Electronic City</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Electronic City, Abu Dhabi, United Arab Emirates</p>
+                    </div>
+
+                    <!-- TAMIL NADU -->
+                    <div class="state-section" id="state-tamil-nadu" data-state="tamil-nadu">
+                        <h2 class="state-heading">Tamil Nadu</h2>
+
+                        <!-- District: Chennai -->
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Chennai Hub</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Airport - Domestic Arrival</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Chennai International Airport, Domestic Arrival Terminal</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Airport - International Arrival</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>T2 International Terminal Arrival, Chennai Airport</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Airport - International Departure</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>T4 International Terminal Departure, Chennai Airport</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Marina Mall</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Marina Mall – 4A, F Block, Phase 2, Plaza Tranquil Acres, Chennai-600117
+                                            </p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>RK Salai</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>RK Salai – 71, New Decor Tower, Radhakrishnan Salai, Chennai 600004</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Forum Mall</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Forum Mall – 183, Arcot Rd, Vadapalani, Chennai-600026</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Mylapore Kapaleeshwarar</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Mylapore High Road, Opposite to Kapaleeshwarar Temple, Chennai-600004</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Besant Nagar</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Besant Nagar Beach Road, Chennai-600090</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Koyambedu Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Koyambedu Metro Station, Chennai-600107</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Alandur Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Alandur Metro Station, Chennai-600016</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Anna Nagar East</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>K-Block, Anna Nagar East, Chennai-600102</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Uthandi - ECR</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Uthandi, ECR, Pritha Palace, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Alwarpet</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Old 48, New 18, K B Desan Road, Alwarpet, Chennai 600018</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Vadapalani Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Vadapalani Metro Railway Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Thirumangalam Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Thirumangalam Metro Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>VR Mall</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>VR Mall, Anna Nagar, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Loyola College</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Sterling Road, Nungambakkam, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Pondy Bazaar</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Pondy Bazaar, T. Nagar, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>OMR - Kandanchavadi</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>No: 288, OMR Road, Rajiv Gandhi Salai, Kandanchavadi, Chennai-600096</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Sholinganallur</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Sholinganallur, OMR, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>DLF Cyber City</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>DLF IT Park, Ramapuram, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Ascendas</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Ascendas IT Park, Taramani, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Ramanujam IT Park</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Taramani, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Wipro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Wipro Campus, Sholinganallur, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Tidel Park</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Tidel Park, Taramani, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Olympia Tech Park</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Guindy, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Central Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Chennai Central Metro Station</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Guindy Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Guindy Metro Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>High Court Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>High Court Metro Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Egmore Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Egmore Metro Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Little Mount Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Little Mount Metro Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Kasi Theatre</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>No. 64, 12th Avenue, Ashok Nagar, Chennai 600083</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Ashok Nagar 2</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Ashok Nagar, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Valasaravakkam</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Valasaravakkam, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Porur (New Shop)</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Porur, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Maduravoyal</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Maduravoyal, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Sowcarpet</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Mint Street, Sowcarpet, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Vepery</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Vepery, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Park Town</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Park Town, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Luz Church Road</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Mylapore, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Eldams Road</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Alwarpet, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Adyar</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Adyar, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Siruseri</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>SIPCOT IT Park, Siruseri, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Pallikaranai</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Pallikaranai, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Velachery</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>100 Feet Road, Velachery, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Tambaram - MEPZ</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>MEPZ SEZ, Tambaram-Sanatorium, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Nehru Park Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Nehru Park Metro Station, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>LIC Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>LIC Metro Station, Mount Road, Chennai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">View on Map</a>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- TAMIL NADU -->
-            <div class="state-section" id="state-tamil-nadu" data-state="tamil-nadu">
-                <h2 class="state-heading">Tamil Nadu</h2>
-
-                <!-- District: Chennai -->
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Chennai Hub</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Airport - Domestic Arrival</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Chennai International Airport, Domestic Arrival Terminal</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Airport - International Arrival</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>T2 International Terminal Arrival, Chennai Airport</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Airport - International Departure</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>T4 International Terminal Departure, Chennai Airport</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Marina Mall</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Marina Mall – 4A, F Block, Phase 2, Plaza Tranquil Acres, Chennai-600117</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>RK Salai</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>RK Salai – 71, New Decor Tower, Radhakrishnan Salai, Chennai 600004</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Forum Mall</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Forum Mall – 183, Arcot Rd, Vadapalani, Chennai-600026</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Mylapore Kapaleeshwarar</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Mylapore High Road, Opposite to Kapaleeshwarar Temple, Chennai-600004</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Besant Nagar</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Besant Nagar Beach Road, Chennai-600090</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Koyambedu Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Koyambedu Metro Station, Chennai-600107</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Alandur Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Alandur Metro Station, Chennai-600016</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Anna Nagar East</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>K-Block, Anna Nagar East, Chennai-600102</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Uthandi - ECR</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Uthandi, ECR, Pritha Palace, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Alwarpet</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Old 48, New 18, K B Desan Road, Alwarpet, Chennai 600018</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Vadapalani Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Vadapalani Metro Railway Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Thirumangalam Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Thirumangalam Metro Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>VR Mall</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>VR Mall, Anna Nagar, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Loyola College</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Sterling Road, Nungambakkam, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Pondy Bazaar</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Pondy Bazaar, T. Nagar, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>OMR - Kandanchavadi</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>No: 288, OMR Road, Rajiv Gandhi Salai, Kandanchavadi, Chennai-600096</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Sholinganallur</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Sholinganallur, OMR, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>DLF Cyber City</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>DLF IT Park, Ramapuram, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Ascendas</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Ascendas IT Park, Taramani, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Ramanujam IT Park</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Taramani, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Wipro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Wipro Campus, Sholinganallur, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Tidel Park</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Tidel Park, Taramani, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Olympia Tech Park</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Guindy, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Central Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Chennai Central Metro Station</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Guindy Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Guindy Metro Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>High Court Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>High Court Metro Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Egmore Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Egmore Metro Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Little Mount Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Little Mount Metro Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Kasi Theatre</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>No. 64, 12th Avenue, Ashok Nagar, Chennai 600083</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Ashok Nagar 2</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Ashok Nagar, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Valasaravakkam</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Valasaravakkam, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Porur (New Shop)</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Porur, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Maduravoyal</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Maduravoyal, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Sowcarpet</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Mint Street, Sowcarpet, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Vepery</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Vepery, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Park Town</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Park Town, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Luz Church Road</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Mylapore, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Eldams Road</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Alwarpet, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Adyar</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Adyar, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Siruseri</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>SIPCOT IT Park, Siruseri, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Pallikaranai</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Pallikaranai, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Velachery</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>100 Feet Road, Velachery, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Tambaram - MEPZ</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>MEPZ SEZ, Tambaram-Sanatorium, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Nehru Park Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Nehru Park Metro Station, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>LIC Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>LIC Metro Station, Mount Road, Chennai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- District: Madurai -->
-                <div class="district-section">
-                    <div class="district-header">
-                        <h3>Madurai</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>KK Nagar</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>No. 15, 80 Feet Road, Managiri, KK Nagar, Madurai – 625020</p>
+                        <!-- District: Madurai -->
+                        <div class="district-section">
+                            <div class="district-header">
+                                <h3>Madurai</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>KK Nagar</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>No. 15, 80 Feet Road, Managiri, KK Nagar, Madurai – 625020</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">Go to Map</a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- District: Kanchipuram -->
-                <div class="district-section">
-                    <div class="district-header">
-                        <h3>Kanchipuram</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Temple City Office</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>No: 14-A, Kamaraja Street, Kanchipuram – 631502</p>
+                        <!-- District: Kanchipuram -->
+                        <div class="district-section">
+                            <div class="district-header">
+                                <h3>Kanchipuram</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Temple City Office</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>No: 14-A, Kamaraja Street, Kanchipuram – 631502</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">Go to Map</a>
                         </div>
-                    </div>
-                </div>
-                <!-- District: Coimbatore -->
-                <div class="district-section">
-                    <div class="district-header">
-                        <h3>Coimbatore</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Coimbatore Tidel Park</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Tidel Park Coimbatore Ltd, ELCOSEZ, Aerodrome Post, Coimbatore-641014</p>
+                        <!-- District: Coimbatore -->
+                        <div class="district-section">
+                            <div class="district-header">
+                                <h3>Coimbatore</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Coimbatore Tidel Park</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Tidel Park Coimbatore Ltd, ELCOSEZ, Aerodrome Post, Coimbatore-641014</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Saravanampatti</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Chill Sez IT Park, Keeranatham Village, Saravanampatti, Coimbatore-641035</p>
+                                <div class="branch-card">
+                                    <h4>Saravanampatti</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Chill Sez IT Park, Keeranatham Village, Saravanampatti, Coimbatore-641035
+                                            </p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Sundarapuram</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Sundarapuram, Coimbatore</p>
+                                <div class="branch-card">
+                                    <h4>Sundarapuram</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Sundarapuram, Coimbatore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Oppanakara Street</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Oppanakara Street, Coimbatore</p>
+                                <div class="branch-card">
+                                    <h4>Oppanakara Street</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Oppanakara Street, Coimbatore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>India Land Tech Park</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Chil Sez, Keeranatham Rd, Saravanampatti, Coimbatore</p>
+                                <div class="branch-card">
+                                    <h4>India Land Tech Park</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Chil Sez, Keeranatham Rd, Saravanampatti, Coimbatore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>SVB Tech Park</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Kalapatti, Coimbatore</p>
+                                <div class="branch-card">
+                                    <h4>SVB Tech Park</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Kalapatti, Coimbatore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Gowsalya Complex</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Gowsalya Complex, Coimbatore</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- District: Other Districts -->
-                <div class="district-section">
-                    <div class="district-header">
-                        <h3>Other Districts</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Vellore</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Vellore, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Tindivanam</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Tindivanam, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Hosur</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Hosur, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Yelagiri</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Yelagiri Hills, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Virudhachalam</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Virudhachalam, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Thiruvallur</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Thiruvallur, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Thanjavur</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Thanjavur, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Villupuram</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Villupuram, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Tirupur</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Tirupur, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Thirumudivakkam</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Thirumudivakkam, Tamil Nadu</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TELANGANA -->
-            <div class="state-section" id="state-telangana" data-state="telangana">
-                <h2 class="state-heading">Telangana</h2>
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Hyderabad</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Hyderabad Airport</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Rajiv Gandhi International Airport, Shamshabad - 500409</p>
+                                <div class="branch-card">
+                                    <h4>Gowsalya Complex</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Gowsalya Complex, Coimbatore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">Go to Map</a>
                         </div>
-                        <div class="branch-card">
-                            <h4>HDY Errammanzil</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Errammanzil, Hyderabad, Telangana</p>
+
+                        <!-- District: Other Districts -->
+                        <div class="district-section">
+                            <div class="district-header">
+                                <h3>Other Districts</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Vellore</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Vellore, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
-                                <div class="info-row"><i class="fas fa-info-circle"></i>
-                                    <p>Filter Coffee & snacks served in a premium environment.</p>
+                                <div class="branch-card">
+                                    <h4>Tindivanam</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Tindivanam, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Hosur</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Hosur, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Yelagiri</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Yelagiri Hills, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Virudhachalam</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Virudhachalam, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Thiruvallur</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Thiruvallur, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Thanjavur</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Thanjavur, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Villupuram</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Villupuram, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Tirupur</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Tirupur, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Thirumudivakkam</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Thirumudivakkam, Tamil Nadu</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Hyderabad Global Home</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Hyderabad, Telangana</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>DLF Hyderabad</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>DLF Cyber City, Gachibowli, Hyderabad</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Sky View</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>The Skyview, Hitech City, Hyderabad</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>CTS Hyderabad</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Cognizant Technology Solutions, Hyderabad (Multiple Campuses)</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>KPHB Hyderabad</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Kukatpally Housing Board Colony, Hyderabad</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- ANDHRA PRADESH -->
-            <div class="state-section" id="state-andhra-pradesh" data-state="andhra-pradesh">
-                <h2 class="state-heading">Andhra Pradesh</h2>
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Coastal Districts</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Rajahmundry JN Road</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>JN Road, near AKC College, Rajahmundry</p>
+                    <!-- TELANGANA -->
+                    <div class="state-section" id="state-telangana" data-state="telangana">
+                        <h2 class="state-heading">Telangana</h2>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Hyderabad</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Hyderabad Airport</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Rajiv Gandhi International Airport, Shamshabad - 500409</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>HDY Errammanzil</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Errammanzil, Hyderabad, Telangana</p>
+                                        </div>
+                                        <div class="info-row"><i class="fas fa-info-circle"></i>
+                                            <p>Filter Coffee & snacks served in a premium environment.</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Hyderabad Global Home</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Hyderabad, Telangana</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>DLF Hyderabad</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>DLF Cyber City, Gachibowli, Hyderabad</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Sky View</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>The Skyview, Hitech City, Hyderabad</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>CTS Hyderabad</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Cognizant Technology Solutions, Hyderabad (Multiple Campuses)</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>KPHB Hyderabad</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Kukatpally Housing Board Colony, Hyderabad</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">Go to Map</a>
                         </div>
-                        <div class="branch-card">
-                            <h4>Guntur</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Guntur City Outlets, Andhra Pradesh</p>
+                    </div>
+
+                    <!-- ANDHRA PRADESH -->
+                    <div class="state-section" id="state-andhra-pradesh" data-state="andhra-pradesh">
+                        <h2 class="state-heading">Andhra Pradesh</h2>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Coastal Districts</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Rajahmundry JN Road</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>JN Road, near AKC College, Rajahmundry</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Guntur</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Guntur City Outlets, Andhra Pradesh</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Rajahmundry 3</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Rajahmundry, Andhra Pradesh</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Rajahmundry 4</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Rajahmundry, Andhra Pradesh</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
                                 </div>
                             </div>
-                            <a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Rajahmundry 3</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Rajahmundry, Andhra Pradesh</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Rajahmundry 4</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Rajahmundry, Andhra Pradesh</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- KARNATAKA -->
-            <div class="state-section" id="state-karnataka" data-state="karnataka">
-                <h2 class="state-heading">Karnataka</h2>
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Bangalore Metro</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    <!-- KARNATAKA -->
+                    <div class="state-section" id="state-karnataka" data-state="karnataka">
+                        <h2 class="state-heading">Karnataka</h2>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Bangalore Metro</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Indira Nagar Station</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Metro Station, Indira Nagar, Bangalore-560038</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Banashankari Station</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Metro Station, Banashankari, Bangalore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>JP Nagar Station</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Metro Station, JP Nagar, Bangalore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Kengeri Metro Station</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Kengeri Metro Station, Bangalore</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Indira Nagar Station</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Metro Station, Indira Nagar, Bangalore-560038</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Banashankari Station</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Metro Station, Banashankari, Bangalore</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>JP Nagar Station</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Metro Station, JP Nagar, Bangalore</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Kengeri Metro Station</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Kengeri Metro Station, Bangalore</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- MAHARASHTRA -->
-            <div class="state-section" id="state-maharashtra" data-state="maharashtra">
-                <h2 class="state-heading">Maharashtra</h2>
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Pune & Mumbai</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    <!-- MAHARASHTRA -->
+                    <div class="state-section" id="state-maharashtra" data-state="maharashtra">
+                        <h2 class="state-heading">Maharashtra</h2>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Pune & Mumbai</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Mumbai Airport</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Chhatrapati Shivaji Maharaj International Airport, Mumbai</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Pune Phoenix</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Phoenix Marketcity, Viman Nagar, Pune</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Shiridi</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Shiridi, Maharashtra</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Mumbai Airport</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Chhatrapati Shivaji Maharaj International Airport, Mumbai</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Pune Phoenix</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Phoenix Marketcity, Viman Nagar, Pune</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Shiridi</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Shiridi, Maharashtra</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- DELHI NCR -->
-            <div class="state-section" id="state-delhi-ncr" data-state="delhi-ncr">
-                <h2 class="state-heading">Delhi NCR</h2>
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Metro Outlets</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    <!-- DELHI NCR -->
+                    <div class="state-section" id="state-delhi-ncr" data-state="delhi-ncr">
+                        <h2 class="state-heading">Delhi NCR</h2>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Metro Outlets</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Rajiv Chowk Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Rajiv Chowk Metro Station, Central Delhi</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Noida Galaxy Square</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Noida Sector 52, Uttar Pradesh</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Hauz Khas Metro</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Hauz Khas Metro Station, New Delhi</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Rajiv Chowk Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Rajiv Chowk Metro Station, Central Delhi</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Noida Galaxy Square</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Noida Sector 52, Uttar Pradesh</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Hauz Khas Metro</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Hauz Khas Metro Station, New Delhi</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- OTHERS -->
-            <div class="state-section" id="state-others" data-state="others">
-                <h2 class="state-heading">Other Regions</h2>
-                <div class="district-section open">
-                    <div class="district-header">
-                        <h3>Kerala & Jharkhand</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    <!-- OTHERS -->
+                    <div class="state-section" id="state-others" data-state="others">
+                        <h2 class="state-heading">Other Regions</h2>
+                        <div class="district-section open">
+                            <div class="district-header">
+                                <h3>Kerala & Jharkhand</h3>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div class="district-content">
+                                <div class="branch-card">
+                                    <h4>Kannur Airport</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>International Airport, Mattannur, Kannur, Kerala</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                                <div class="branch-card">
+                                    <h4>Ranchi Main</h4>
+                                    <div class="branch-info">
+                                        <div class="info-row"><i class="fas fa-map-marker-alt"></i>
+                                            <p>Main Road, Ranchi, Jharkhand</p>
+                                        </div>
+                                    </div><a href="#" class="btn-map">Go to Map</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="district-content">
-                        <div class="branch-card">
-                            <h4>Kannur Airport</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>International Airport, Mattannur, Kannur, Kerala</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
-                        <div class="branch-card">
-                            <h4>Ranchi Main</h4>
-                            <div class="branch-info">
-                                <div class="info-row"><i class="fas fa-map-marker-alt"></i>
-                                    <p>Main Road, Ranchi, Jharkhand</p>
-                                </div>
-                            </div><a href="#" class="btn-map">Go to Map</a>
-                        </div>
+                </div> <!-- End state-container -->
+            </div> <!-- End stores-list-side -->
+
+            <!-- Map Sidebar -->
+            <aside class="map-sidebar">
+                <div class="map-sticky-container">
+                    <div class="map-header">
+                        <h3>Branch Location</h3>
+                        <span id="active-branch-name" class="active-branch-label">Select a branch to view map</span>
+                    </div>
+                    <div class="map-frame-wrapper">
+                        <iframe id="store-map-iframe"
+                            src="https://www.google.com/maps?q=Madras+Coffee+House&output=embed" allowfullscreen=""
+                            loading="lazy"></iframe>
                     </div>
                 </div>
-            </div>
-        </div>
+            </aside>
+        </div> <!-- End stores-main-layout -->
     </main>
 
     <footer>
@@ -1567,6 +1738,56 @@
                 });
             });
         }
+
+        // 🗺 Store Map Interactive Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const mapIframe = document.getElementById('store-map-iframe');
+            const branchNameLabel = document.getElementById('active-branch-name');
+            const mapSidebar = document.querySelector('.map-sidebar');
+            const mapButtons = document.querySelectorAll('.btn-map');
+
+            mapButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const card = btn.closest('.branch-card');
+                    const branchName = card.querySelector('h4').textContent;
+                    const addressRows = card.querySelectorAll('.info-row p');
+                    let address = "";
+                    addressRows.forEach(row => address += row.textContent + " ");
+
+                    // Highlight active card
+                    document.querySelectorAll('.branch-card').forEach(c => c.classList.remove('active-target'));
+                    card.classList.add('active-target');
+
+                    // Update Map Label
+                    branchNameLabel.textContent = branchName;
+
+                    // Fade out iframe for smooth transition
+                    mapIframe.style.opacity = '0';
+
+                    setTimeout(() => {
+                        // Build Search Query (Name + Address fallback)
+                        const query = encodeURIComponent(`${branchName} Madras Coffee House ${address.trim()}`);
+                        mapIframe.src = `https://www.google.com/maps?q=${query}&output=embed`;
+
+                        mapIframe.onload = () => {
+                            mapIframe.style.opacity = '1';
+                        };
+                    }, 300);
+
+                    // Mobile Responsiveness: Move map below the current card
+                    if (window.innerWidth <= 992) {
+                        mapSidebar.classList.add('mobile-visible');
+                        card.after(mapSidebar);
+
+                        // Smooth scroll to the updated map position
+                        setTimeout(() => {
+                            mapSidebar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 400);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
