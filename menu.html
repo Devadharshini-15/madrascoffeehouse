@@ -39,11 +39,31 @@
 
         .menu-hero h1 {
             color: var(--mch-red);
-            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            font-size: clamp(2.2rem, 8vw, 3.5rem);
             font-weight: 900;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-page {
+                padding-top: 100px;
+            }
+
+            .menu-hero {
+                margin-bottom: 40px;
+            }
+
+            .menu-hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+
+            .menu-hero p {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
         }
 
         .menu-hero p {
@@ -101,6 +121,17 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 50px;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-sections {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .menu-category {
+                padding: 30px 20px;
+            }
         }
 
         .menu-category {
@@ -241,7 +272,7 @@
 
         .category-header h2 {
             color: var(--mch-red);
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
             font-weight: 800;
             margin: 10px 0;
             text-transform: uppercase;
@@ -344,14 +375,13 @@
                 <div class="nav-links">
                     <a href="index.html" class="nav-item">Home</a>
                     <a href="menu.html" class="nav-item active">Our Menu</a>
-                    <a href="index.html#stores" class="nav-item">Our Stores</a>
-                    <a href="index.html#franchise" class="nav-item">Franchise</a>
-                    <a href="index.html#contact" class="nav-item">Contact</a>
+                    <a href="stores.html" class="nav-item">Our Stores</a>
+                    <a href="franchise.html" class="nav-item">Franchise</a>
+                    <a href="contact.html" class="nav-item">Contact</a>
                 </div>
 
                 <div class="nav-cta">
-                    <a href="index.html#franchise" class="btn btn-red btn-lux">Get Franchise <span
-                            class="arrow">→</span></a>
+                    <a href="franchise.html" class="btn btn-red btn-lux">Get Franchise <span class="arrow">→</span></a>
                 </div>
 
                 <button class="menu-toggle" aria-label="Open Menu">
@@ -366,10 +396,10 @@
             <nav class="mobile-nav">
                 <a href="index.html" class="mobile-link">Home</a>
                 <a href="menu.html" class="mobile-link active">Our Menu</a>
-                <a href="index.html#stores" class="mobile-link">Our Stores</a>
-                <a href="index.html#franchise" class="mobile-link">Franchise</a>
-                <a href="index.html#contact" class="mobile-link">Contact</a>
-                <a href="index.html#franchise" class="btn btn-red mobile-cta">Get Franchise</a>
+                <a href="stores.html" class="mobile-link">Our Stores</a>
+                <a href="franchise.html" class="mobile-link">Franchise</a>
+                <a href="contact.html" class="mobile-link">Contact</a>
+                <a href="franchise.html" class="btn btn-red mobile-cta">Get Franchise</a>
             </nav>
         </div>
     </header>
@@ -986,7 +1016,7 @@
                     <p class="footer-title">Contact Us</p>
                     <ul class="footer-links">
                         <li>info@madrascoffeehouse.com</li>
-                        <li>+91 98765 43210</li>
+                        <li>+91 98848 83906</li>
                         <li>Chennai, Tamil Nadu</li>
                     </ul>
                 </div>
