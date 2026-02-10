@@ -125,7 +125,27 @@
             .filter-tabs {
                 justify-content: center;
                 padding: 15px 0;
-                /* No need for extra side padding if centered and fitting */
+            }
+        }
+
+        .stores-tagline {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.7;
+            color: var(--mch-red);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .stores-tagline {
+                font-size: 1.05rem;
+                padding: 0 10px;
+                text-align: justify;
+                text-justify: inter-word;
+                hyphens: auto;
+                line-height: 1.5;
             }
         }
 
@@ -663,7 +683,7 @@
                     <div class="divider-diamond"></div>
                     <div class="divider-line"></div>
                 </div>
-                <p style="max-width: 700px; margin: 0 auto; font-size: 1.2rem; font-weight: 600;">
+                <p class="stores-tagline">
                     Discover our footprint across the heritage-rich landscape of South India and global travel hubs.
                     Authentic Madras Filter Coffee, served with tradition.
                 </p>

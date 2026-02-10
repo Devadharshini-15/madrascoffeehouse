@@ -133,6 +133,9 @@ p {
     p {
         line-height: 1.55;
         margin-bottom: var(--s3);
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
     }
 
     .hero {
@@ -1513,10 +1516,9 @@ footer {
         font-size: 1rem;
         max-width: 100%;
         padding: 0 var(--s2);
-        text-align: center;
-        /* Center align for consistency */
-        text-justify: initial;
-        hyphens: none;
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
     }
 
     .hero-btns {
@@ -1533,7 +1535,10 @@ footer {
 
     .hero-sub {
         margin-bottom: var(--s6);
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
     }
 
     .hero-trust {
@@ -1584,6 +1589,30 @@ footer {
     .footer-grid {
         grid-template-columns: 1fr;
         gap: var(--s6);
+        text-align: center;
+    }
+
+    .footer-logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: var(--s2);
+    }
+
+    .footer-tag {
+        margin: 0 auto var(--s4);
+    }
+
+    .footer-links {
+        padding: 0;
+        list-style: none;
+    }
+
+    .socials {
+        justify-content: center;
+    }
+
+    footer p {
+        text-align: center !important;
     }
 }
 
