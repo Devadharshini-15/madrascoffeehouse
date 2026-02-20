@@ -363,8 +363,7 @@
             font-size: 0.95rem;
             font-weight: 500;
             line-height: 1.5;
-            color: var(--brand-red);
-            /* Using the local variable color */
+            color: var(--mch-red);
         }
 
         .btn-map {
@@ -376,11 +375,11 @@
             padding: 14px;
             border: 2px solid var(--mch-red);
             background-color: var(--mch-red);
-            color: var(--mch-white);
+            color: var(--mch-white) !important;
             text-decoration: none;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 1px;
             transition: all 0.3s ease;
         }
@@ -388,6 +387,13 @@
         .btn-map:hover {
             background-color: var(--mch-orange);
             border-color: var(--mch-orange);
+            color: var(--mch-white) !important;
+        }
+
+        .branch-card.active-target .btn-map {
+            background-color: var(--mch-orange);
+            border-color: var(--mch-orange);
+            color: var(--mch-white) !important;
         }
 
         /* 📱 Mobile Responsive Optimization */
@@ -547,9 +553,10 @@
         .active-branch-label {
             display: block;
             margin-top: 5px;
-            color: var(--mch-orange);
-            font-size: 0.9rem;
-            font-weight: 700;
+            color: var(--mch-red);
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
         .map-frame-wrapper {
@@ -1793,6 +1800,11 @@
                         mapIframe.onload = () => {
                             mapIframe.style.opacity = '1';
                         };
+
+                        // Safety timeout if map takes too long or onload doesn't fire
+                        setTimeout(() => {
+                            mapIframe.style.opacity = '1';
+                        }, 2000);
                     }, 300);
 
                     // Mobile Responsiveness: Move map below the current card
